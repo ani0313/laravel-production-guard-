@@ -1,0 +1,63 @@
+{
+    "name": "anivesh/laravel-production-guard",
+    "description": "A safe, read-only, diagnostic production-readiness checker for Laravel applications.",
+    "type": "library",
+    "license": "MIT",
+    "homepage": "https://github.com/aniveshdev/laravel-production-guard",
+    "keywords": [
+        "laravel",
+        "production",
+        "readiness",
+        "health-check",
+        "diagnostics",
+        "devops"
+    ],
+    "authors": [
+        {
+            "name": "aniveshdev",
+            "homepage": "https://github.com/aniveshdev"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/aniveshdev/laravel-production-guard/issues",
+        "source": "https://github.com/aniveshdev/laravel-production-guard"
+    },
+    "require": {
+        "php": "^7.1",
+        "illuminate/support": "^5.4",
+        "illuminate/console": "^5.4",
+        "illuminate/contracts": "^5.4"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^3.4",
+        "phpunit/phpunit": "^6.0 || ^7.0",
+        "mockery/mockery": "^1.0",
+        "predis/predis": "^1.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Anivesh\\LaravelProductionGuard\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Anivesh\\LaravelProductionGuard\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-text"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Anivesh\\LaravelProductionGuard\\LaravelProductionGuardServiceProvider"
+            ],
+            "aliases": {
+                "ProductionGuard": "Anivesh\\LaravelProductionGuard\\Facades\\ProductionGuard"
+            }
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}

@@ -1,0 +1,38 @@
+name: tests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  phpunit:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # This is the 1.x release line's declared range (composer.json:
+        # php ^7.1, illuminate/* ^5.4, orchestra/testbench ^3.4 -> Laravel
+        # 5.4-5.8). Do not widen this matrix to later Laravel/PHP versions
+        # without also widening those composer.json constraints - claiming
+        # compatibility that hasn't actually been tested is exactly what
+        # this package itself warns against.
+        php: ['7.1', '7.2', '7.3', '7.4']
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup PHP ${{ matrix.php }}
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: mbstring, pdo, pdo_sqlite, redis
+          coverage: none
+
+      - name: Install dependencies
+        run: composer update --prefer-dist --no-interaction --no-progress
+
+      - name: Validate composer.json
+        run: composer validate --no-check-all
+
+      - name: Run test suite
+        run: vendor/bin/phpunit
